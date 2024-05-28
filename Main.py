@@ -46,7 +46,7 @@ twitter_accounts = [
 
 # Example usage
 ticker_symbol = '$TSLA'
-scrape_interval = 5 # in minutes
+scrape_interval = 3 # in minutes
 
 # Schedule the scraping function
 schedule.every(scrape_interval).minutes.do(scrape_all_accounts, twitter_accounts, ticker_symbol, scrape_interval)
@@ -54,4 +54,3 @@ schedule.every(scrape_interval).minutes.do(scrape_all_accounts, twitter_accounts
 # Run the scheduler
 while True:
     schedule.run_pending()
-    time.sleep(1)
