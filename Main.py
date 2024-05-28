@@ -4,12 +4,12 @@ import schedule
 import time
 
 def scrape_twitter_page(url, ticker):
-   
+   #function takes 2 varibale url of the twitter account and the sympol we are looking for in the tweets
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
         tweets = soup.find_all('div', {'data-testid': 'tweet'})
-        
+  #then we send requests to get data from the account and by using beautifulsoup function we get content and parese data of the tweets
         mentions = 0
         for tweet in tweets:
             if ticker in tweet.text:
@@ -21,7 +21,7 @@ def scrape_twitter_page(url, ticker):
         return 0
 
 def scrape_all_accounts(accounts, ticker, interval):
-
+#function that scrape all accounts and count total mentions and print the output we looking for in the interval time
     total_mentions = 0
     for account in accounts:
         mentions = scrape_twitter_page(account, ticker)
@@ -46,7 +46,7 @@ twitter_accounts = [
 
 # Example usage
 ticker_symbol = '$TSLA'
-scrape_interval = 1  # in minutes
+scrape_interval = 5 # in minutes
 
 # Schedule the scraping function
 schedule.every(scrape_interval).minutes.do(scrape_all_accounts, twitter_accounts, ticker_symbol, scrape_interval)
